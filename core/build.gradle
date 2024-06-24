@@ -1,17 +1,34 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'signing'
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+javadoc {
+    source = sourceSets.main.allJava
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 description = "Core of the Race library to simplify integration test \
 to simulate race to execute the commands onto the external resource."
-group = 'me.asinrus.race'
-name = "${group}:${project.name}"
+group = 'io.github.asinrus.race'
 version = '0.0.1'
-url=''
+def archiveBaseName = 'core'
+
 
 repositories {
     mavenCentral()
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
 }
 
 dependencies {
@@ -25,19 +42,67 @@ test {
     useJUnitPlatform()
 }
 
-jar {
-    archiveBaseName = "core"
+jar {}
+
+static def trim(String sourceString, String trimmedChar = '"') {
+    sourceString.replaceAll(~/^\$trimmedChar+|\$trimmedChar+$/, '')
+}
+
+def loadSigningKeyFromFile() {
+    def signingKeyAbsolutePath = findProperty('signing.privateKeyPath') as String
+    def signingKeyFile = !(signingKeyAbsolutePath == null || signingKeyAbsolutePath.isBlank()) ? file(signingKeyAbsolutePath) : null
+    logger.lifecycle("GPG signing key will be loaded from file '$signingKeyFile'")
+
+    return (signingKeyFile?.exists() ?: false) ? signingKeyFile.text : ''
 }
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        maven(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
             from components.java
+            pom {
+                name = archiveBaseName
+                description = "Core of the Race library to simplify integration test \
+                        to simulate race to execute the commands onto the external resource."
+                group = 'io.github.asinrus.race'
+                url = 'https://github.com/Asinrus/race'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://github.com/Asinrus/race/blob/master/LICENSE.txt'
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'asinrus'
+                        name = "Arkadii Osheev"
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/Asinrus/race.git'
+                    developerConnection = 'scm:git:ssh://github.com:Asinrus/race.git'
+                    url = 'https://github.com/Asinrus/race'
+                }
+            }
         }
     }
+
     repositories {
         maven {
             url = "file://${System.getProperty('user.home')}/.m2/repository"
         }
     }
 }
+
+signing {
+    String signingKeyText = trim(System.getenv('GPG_SIGNING_KEY') ?: loadSigningKeyFromFile())
+    String signingPassword = trim(findProperty('signing.password') as String ?: '')
+    logger.lifecycle("GPG signing key: ${signingKeyText.take(100)} ******")
+
+    useInMemoryPgpKeys(signingKeyText, signingPassword)
+    sign publishing.publications
+}
+

@@ -1,6 +1,7 @@
 ## RACE - a tiny library for integration testing
 
-Race - a tiny library to help developers do integration testing and not compile in the head transaction behavior.
+Race - a tiny library written on Java 11 to help developers do integration testing and not compile in the head 
+transaction behavior.
 
 ### Why `race`?
 `Race` (according to Cambridge dictionary) - a competition in which all the competitors try to be the fastest and to 

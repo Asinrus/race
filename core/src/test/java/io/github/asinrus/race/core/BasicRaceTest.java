@@ -1,4 +1,4 @@
-package me.asinrus.race.core;
+package io.github.asinrus.race.core;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 
-import static me.asinrus.race.core.RaceTestSuit.race;
+import static io.github.asinrus.race.core.RaceTestSuitRegistry.race;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
