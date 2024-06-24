@@ -2,10 +2,13 @@ plugins {
     id 'java'
     id 'maven-publish'
 }
+
 description = "Core of the Race library to simplify integration test \
 to simulate race to execute the commands onto the external resource."
 group = 'me.asinrus.race'
+name = "${group}:${project.name}"
 version = '0.0.1'
+url=''
 
 repositories {
     mavenCentral()
