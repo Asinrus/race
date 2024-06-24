@@ -1,2 +1,3 @@
-rootProject.name = 'concurrentExecutor'
+rootProject.name = 'race'
+include 'core'
 
