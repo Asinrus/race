@@ -86,8 +86,9 @@ understand how you code works when you use a transaction onto a database
 2. if you have a external containerize product which has a some rules to resolve data contention in case of 
    multithreading access
 
+### Examples:
+[Link]()
+
 ### Don't use it: 
 1. If you want to test Java memory model. Please, use a [Lincheck](https://github.com/JetBrains/lincheck)
 
-### Examples:
-[Link]()
