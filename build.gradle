@@ -5,18 +5,30 @@ plugins {
 
 sourceCompatibility = 11
 targetCompatibility = 11
-group = 'me.asinrus.race'
+group = 'io.github.asinrus'
 version = '0.0.1'
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
 }
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = "file://${System.getProperty('user.home')}/.m2/repository"
+        }
+    }
 }
 
 

@@ -1,6 +1,11 @@
 ## RACE - a tiny library for integration testing
 
-Race - a tiny library to help developers do integration testing and not compile in the head transaction behavior.
+Race - a tiny library written on Java 11 to help developers do integration testing and not compile in the head 
+transaction behavior.
+Just add in your `build.gradle` and enjoy 
+```groovy
+testImplementation group: 'io.github.asinrus.race', name: 'core', version: '0.0.1'
+```
 
 ### Why `race`?
 `Race` (according to Cambridge dictionary) - a competition in which all the competitors try to be the fastest and to 
@@ -62,31 +67,32 @@ To test a transaction behaviour we need to the next without `race`:
 ```
 
 With `race`:
+
 ```java
- @Test
- void test() {
-     race(Map.of
-             ("John", () -> customerService.changeName(1L, "John"),
-                     "Derek", () -> customerService.changeName(1L, "Derek")))
-             .withAssertion(executionResult -> {
-                 var johnResult = executionResult.get("John");
-                 var derekResult = executionResult.get("Derek");
-                 assertTrue((derekResult.isHasError() && !johnResult.isHasError())
-                         || (johnResult.isHasError() && !derekResult.isHasError()) );
-             })
-             .go();
- }
+@Test
+void testWithNaming() {
+    race(Map.of(
+            "Mike", () -> customerService.changeName(1L, "Mike"),
+            "Derek", () -> customerService.changeName(1L, "Derek")))
+        .withAssertion(executionResult -> {
+            var derekResult = executionResult.get("Derek");
+            var mikeResult = executionResult.get("Mike");
+            var oneContainsError = mikeResult.isHasError() ^ derekResult.isHasError();
+            assertTrue(oneContainsError);
+        })
+        .go();
+}
 ```
 
+### Examples:
+[Link] to the examples (https://github.com/Asinrus/race-examples)
 
-### Usage: 
+### Usage:
 1. if you have a database, and you want to be sure that you
 understand how you code works when you use a transaction onto a database
 2. if you have a external containerize product which has a some rules to resolve data contention in case of 
    multithreading access
 
+
 ### Don't use it: 
 1. If you want to test Java memory model. Please, use a [Lincheck](https://github.com/JetBrains/lincheck)
-
-### Examples:
-[Link]()
