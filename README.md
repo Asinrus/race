@@ -85,7 +85,7 @@ void testWithNaming() {
 ```
 
 ### Examples:
-[Link] to the examples (https://github.com/Asinrus/race-examples)
+[Link](https://github.com/Asinrus/race-examples) to the examples 
 
 ### Usage:
 1. if you have a database, and you want to be sure that you
