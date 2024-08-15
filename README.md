@@ -2,6 +2,10 @@
 
 Race - a tiny library written on Java 11 to help developers do integration testing and not compile in the head 
 transaction behavior.
+Just add in your `build.gradle` and enjoy 
+```groovy
+testImplementation group: 'io.github.asinrus.race', name: 'core', version: '0.0.1'
+```
 
 ### Why `race`?
 `Race` (according to Cambridge dictionary) - a competition in which all the competitors try to be the fastest and to 
@@ -83,7 +87,7 @@ void testWithNaming() {
 ### Examples:
 [Link] to the examples (https://github.com/Asinrus/race-examples)
 
-### Usage: 
+### Usage:
 1. if you have a database, and you want to be sure that you
 understand how you code works when you use a transaction onto a database
 2. if you have a external containerize product which has a some rules to resolve data contention in case of 
@@ -92,4 +96,3 @@ understand how you code works when you use a transaction onto a database
 
 ### Don't use it: 
 1. If you want to test Java memory model. Please, use a [Lincheck](https://github.com/JetBrains/lincheck)
-
