@@ -43,7 +43,7 @@ public class BoundRaceExecutorImpl<K, T> {
      * Executes the given tasks concurrently and returns a ComplexExecutionResult that contains the results of the tasks.
      *
      * @param namedTasks the tasks to execute
-     * @param barrier the barrier to use for synchronization
+     * @param barrier    the barrier to use for synchronization
      * @return a ComplexExecutionResult that contains the results of the tasks
      */
     public ComplexExecutionResult<K, T> execute(Map<K, Callable<T>> namedTasks, Barrier barrier) {

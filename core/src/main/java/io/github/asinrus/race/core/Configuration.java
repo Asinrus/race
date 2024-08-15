@@ -28,7 +28,7 @@ public class Configuration {
      * Constructs a new Configuration with the given number of threads and timeout.
      *
      * @param numThreads the number of threads to use for concurrent execution
-     * @param timeout the maximum time to wait for the tasks to complete
+     * @param timeout    the maximum time to wait for the tasks to complete
      */
     private Configuration(int numThreads, Duration timeout) {
         this.numThreads = numThreads;

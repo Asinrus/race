@@ -27,8 +27,8 @@ public class TaskExecutionResult<T> {
     /**
      * Constructs a new TaskExecutionResult with the given result, error, and error flag.
      *
-     * @param result the result of the task execution
-     * @param error the error that occurred during the task execution, if any
+     * @param result     the result of the task execution
+     * @param error      the error that occurred during the task execution, if any
      * @param isHasError a flag indicating whether an error occurred during the task execution
      */
     public TaskExecutionResult(T result, Throwable error, boolean isHasError) {
@@ -41,7 +41,7 @@ public class TaskExecutionResult<T> {
      * Returns a new TaskExecutionResult based on the given Future.
      *
      * @param task the Future to base the TaskExecutionResult on
-     * @param <T> - operation result type
+     * @param <T>  - operation result type
      * @return a new TaskExecutionResult based on the given Future
      */
     public static <T> TaskExecutionResult<T> formExecutionResult(Future<T> task) {

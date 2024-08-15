@@ -28,7 +28,7 @@ public class CommonExecutionResult<T> {
      * Constructs a new CommonExecutionResult with the given results and errors.
      *
      * @param results the results of the tasks
-     * @param errors the errors that occurred during the tasks execution, if any
+     * @param errors  the errors that occurred during the tasks execution, if any
      */
     public CommonExecutionResult(Collection<T> results, Collection<Throwable> errors) {
         this.results = results;

@@ -37,7 +37,7 @@ public interface ComplexExecutionResult<K, T> {
     /**
      * Adds the result of a task to this complex execution result.
      *
-     * @param key the key of the task
+     * @param key    the key of the task
      * @param result the result of the task
      */
     void addResult(K key, TaskExecutionResult<T> result);

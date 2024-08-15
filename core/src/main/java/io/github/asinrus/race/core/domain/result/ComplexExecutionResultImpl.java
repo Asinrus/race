@@ -45,7 +45,7 @@ public class ComplexExecutionResultImpl<K, T> implements ComplexExecutionResult<
     /**
      * Adds the result of a task to this complex execution result.
      *
-     * @param key the key of the task
+     * @param key    the key of the task
      * @param result the result of the task
      */
     @Override

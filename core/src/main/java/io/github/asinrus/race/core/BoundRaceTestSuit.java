@@ -33,9 +33,9 @@ public class BoundRaceTestSuit<K, T> implements RaceTestSuit {
     /**
      * Constructs a new BoundRaceTestSuit with the given duration, assertion, and tasks.
      *
-     * @param duration the maximum time to wait for the tasks to complete
+     * @param duration  the maximum time to wait for the tasks to complete
      * @param assertion the assertion to use for validating the results of the tasks
-     * @param tasks the tasks to execute
+     * @param tasks     the tasks to execute
      */
     public BoundRaceTestSuit(Duration duration,
                              Consumer<ComplexExecutionResult<K, T>> assertion, Map<K, Callable<T>> tasks) {

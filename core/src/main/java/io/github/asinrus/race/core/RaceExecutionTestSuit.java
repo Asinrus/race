@@ -35,8 +35,8 @@ public class RaceExecutionTestSuit<T> implements RaceTestSuit {
      * Constructs a new RaceExecutionTestSuit with the given configuration, assertion, and task.
      *
      * @param configuration the configuration to use for this test suit
-     * @param assertion the assertion to use for validating the result of the task
-     * @param task the task to execute
+     * @param assertion     the assertion to use for validating the result of the task
+     * @param task          the task to execute
      */
     public RaceExecutionTestSuit(Configuration configuration, Consumer<CommonExecutionResult<T>> assertion, Callable<T> task) {
         this.configuration = configuration;
@@ -72,10 +72,9 @@ public class RaceExecutionTestSuit<T> implements RaceTestSuit {
     public static class RaceExecutionTestSuitBuilder<T> {
         private Configuration configuration = Configuration.defaultConfiguration();
         private final Callable<T> task;
-        private Consumer<CommonExecutionResult<T>> assertion = (t) -> {};
+        private Consumer<CommonExecutionResult<T>> assertion = (t) -> {
+        };
 
-        /**
-         */
         public RaceExecutionTestSuitBuilder(Callable<T> task) {
             this.task = task;
         }
@@ -98,7 +97,8 @@ public class RaceExecutionTestSuit<T> implements RaceTestSuit {
         }
 
         /**
-         *  Method to run test
+         * Method to run test
+         *
          * @return testSuit
          */
         public RaceExecutionTestSuit<T> go() {

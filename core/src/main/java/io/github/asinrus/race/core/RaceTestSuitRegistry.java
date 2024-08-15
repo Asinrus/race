@@ -24,7 +24,7 @@ public class RaceTestSuitRegistry {
      * Returns a new RaceExecutionTestSuitBuilder for the given action.
      *
      * @param action the action to execute in the test suit
-     * @param <T> operation result type
+     * @param <T>    operation result type
      * @return a new RaceExecutionTestSuitBuilder for the given action
      */
     public static <T> RaceExecutionTestSuit.RaceExecutionTestSuitBuilder<T> race(Callable<T> action) {
@@ -35,8 +35,8 @@ public class RaceTestSuitRegistry {
      * Returns a new BoundRaceTestSuitBuilder for the given tasks.
      *
      * @param tasks the tasks to execute in the test suit
-     * @param <T> operation result type
-     * @param <K> key type to specify how to access to the Callable
+     * @param <T>   operation result type
+     * @param <K>   key type to specify how to access to the Callable
      * @return a new BoundRaceTestSuitBuilder for the given tasks
      */
     public static <K, T> BoundRaceTestSuit.BoundRaceTestSuitBuilder<K, T> race(Map<K, Callable<T>> tasks) {
