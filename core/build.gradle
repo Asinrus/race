@@ -19,7 +19,7 @@ java {
 description = "Core of the Race library to simplify integration test \
 to simulate race to execute the commands onto the external resource."
 group = 'io.github.asinrus.race'
-version = '0.0.1'
+version = '1.0.0'
 def archiveBaseName = 'core'
 
 
