@@ -24,7 +24,7 @@ public interface ComplexExecutionResult<K, T> {
      *
      * @return the results of the tasks
      */
-    Map<K, TaskExecutionResult<T>> result();
+    Map<K, TaskExecutionResult<T>> resultMap();
 
     /**
      * Returns the result of the task with the given key.

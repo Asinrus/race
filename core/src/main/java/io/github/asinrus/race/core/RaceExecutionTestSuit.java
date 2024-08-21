@@ -56,10 +56,8 @@ public class RaceExecutionTestSuit<T> implements RaceTestSuit {
 
         race(executionTasks)
                 .withTimeout(configuration.timeout())
-                .withAssertion(complexExecutionResult ->
-                        {
-                            CommonExecutionResult<T> commonExecutionResult = CommonExecutionResult
-                                    .parse(complexExecutionResult);
+                .withAssertion(complexExecutionResult -> {
+                            CommonExecutionResult<T> commonExecutionResult = CommonExecutionResult.parse(complexExecutionResult);
                             assertion.accept(commonExecutionResult);
                         }
                 )

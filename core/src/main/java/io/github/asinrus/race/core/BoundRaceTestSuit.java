@@ -50,6 +50,7 @@ public class BoundRaceTestSuit<K, T> implements RaceTestSuit {
     @Override
     public void go() {
         Configuration configuration = Configuration.builder()
+                .setNumThreads(tasks.size())
                 .setTimeout(timeout)
                 .build();
 
@@ -81,6 +82,7 @@ public class BoundRaceTestSuit<K, T> implements RaceTestSuit {
      * This class represents a builder for creating a BoundRaceTestSuit.
      */
     public static class BoundRaceTestSuitBuilder<K, T> {
+        // TODO: spreading logic - needs to simplify
         private Duration timeout = Duration.of(30, ChronoUnit.SECONDS);
         private Consumer<ComplexExecutionResult<K, T>> assertion = (t) -> {
         };
