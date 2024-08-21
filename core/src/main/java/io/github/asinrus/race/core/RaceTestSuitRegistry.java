@@ -14,7 +14,7 @@ package io.github.asinrus.race.core;
 
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 /**
  * This class provides static methods to create test suits for race conditions.
@@ -44,7 +44,7 @@ public class RaceTestSuitRegistry {
         return new BoundRaceTestSuit.BoundRaceTestSuitBuilder<>(tasks);
     }
 
-    public static <K, T> CompletableFutureTestSuit.CompletableFutureTestSuitBuilder<K, T> raceCompletableFutures(Map<K, CompletableFuture<T>> tasks) {
-        return new CompletableFutureTestSuit.CompletableFutureTestSuitBuilder<>(tasks);
+    public static <K, T> FutureRaceTestSuit.CompletableFutureTestSuitBuilder<K, T> raceByFutures(Map<K, Future<T>> tasks) {
+        return new FutureRaceTestSuit.CompletableFutureTestSuitBuilder<>(tasks);
     }
 }

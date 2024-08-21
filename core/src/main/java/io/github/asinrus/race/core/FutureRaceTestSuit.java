@@ -6,21 +6,21 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 import static io.github.asinrus.race.core.RaceTestSuitRegistry.race;
 import static java.util.stream.Collectors.toMap;
 
-public class CompletableFutureTestSuit<K, T> implements RaceTestSuit {
+public class FutureRaceTestSuit<K, T> implements RaceTestSuit {
     private final Duration timeout;
     private final Consumer<ComplexExecutionResult<K, T>> assertion;
-    private final Map<K, CompletableFuture<T>> completableFutureMap;
+    private final Map<K, Future<T>> completableFutureMap;
 
-    public CompletableFutureTestSuit(Duration timeout,
-                                     Consumer<ComplexExecutionResult<K, T>> assertion,
-                                     Map<K, CompletableFuture<T>> completableFutureMap) {
+    public FutureRaceTestSuit(Duration timeout,
+                              Consumer<ComplexExecutionResult<K, T>> assertion,
+                              Map<K, Future<T>> completableFutureMap) {
         this.timeout = timeout;
         this.assertion = assertion;
         this.completableFutureMap = completableFutureMap;
@@ -32,7 +32,7 @@ public class CompletableFutureTestSuit<K, T> implements RaceTestSuit {
                 .stream()
                 .collect(toMap(Map.Entry::getKey,
                         e -> {
-                            CompletableFuture<T> comFut = e.getValue();
+                            Future<T> comFut = e.getValue();
                             return () -> {
                                 try {
                                     return comFut.get();
@@ -54,10 +54,10 @@ public class CompletableFutureTestSuit<K, T> implements RaceTestSuit {
     public static class CompletableFutureTestSuitBuilder<K, T> {
 
         private Duration timeout = Duration.of(30, ChronoUnit.SECONDS);
-        private final Map<K, CompletableFuture<T>> taskFutures;
+        private final Map<K, Future<T>> taskFutures;
         private Consumer<ComplexExecutionResult<K, T>> assertion = (result) -> { };
 
-        public CompletableFutureTestSuitBuilder(Map<K, CompletableFuture<T>> taskFutures) {
+        public CompletableFutureTestSuitBuilder(Map<K, Future<T>> taskFutures) {
             this.taskFutures = taskFutures;
         }
 
@@ -71,8 +71,8 @@ public class CompletableFutureTestSuit<K, T> implements RaceTestSuit {
             return this;
         }
 
-        public CompletableFutureTestSuit<K, T> go() {
-            CompletableFutureTestSuit<K, T> testSuit = new CompletableFutureTestSuit<>(timeout, assertion, taskFutures);
+        public FutureRaceTestSuit<K, T> go() {
+            FutureRaceTestSuit<K, T> testSuit = new FutureRaceTestSuit<>(timeout, assertion, taskFutures);
             testSuit.go();
             return testSuit;
         }

@@ -5,33 +5,34 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
-import static io.github.asinrus.race.core.RaceTestSuitRegistry.raceCompletableFutures;
+import static io.github.asinrus.race.core.RaceTestSuitRegistry.raceByFutures;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CompletableFutureTestSuitTest {
+class FutureTestSuitRaceTest {
 
     @Test
     void testSuccessfulCompletion() {
-        CompletableFuture<String> successCompletedFuture = CompletableFuture.completedFuture("Success");
+        Future<String> successCompletedFuture = CompletableFuture.completedFuture("Success");
 
-        Map<String, CompletableFuture<String>> futuresMap = Map.of("op1", successCompletedFuture,
+        Map<String, Future<String>> futuresMap = Map.of("op1", successCompletedFuture,
                 "op2", successCompletedFuture);
 
-        raceCompletableFutures(futuresMap)
+        raceByFutures(futuresMap)
                 .withTimeout(Duration.ofSeconds(1))
                 .go();
     }
 
     @Test
     void testTimeoutFailed() throws InterruptedException {
-        CompletableFuture<String> successCompletedFuture = CompletableFuture.completedFuture("Success");
+        Future<String> successCompletedFuture = CompletableFuture.completedFuture("Success");
 
-        Map<String, CompletableFuture<String>> futuresMap = Map.of("op1", successCompletedFuture,
+        Map<String, Future<String>> futuresMap = Map.of("op1", successCompletedFuture,
                 "op2", CompletableFuture.supplyAsync(() -> {
                     try {
                         sleep(2_000);
@@ -42,7 +43,7 @@ class CompletableFutureTestSuitTest {
                 }));
 
         BoundRaceExecutorImpl.ExecutionException executionException = assertThrows(BoundRaceExecutorImpl.ExecutionException.class,
-                () -> raceCompletableFutures(futuresMap).withTimeout(Duration.ofSeconds(1)).go());
+                () -> raceByFutures(futuresMap).withTimeout(Duration.ofSeconds(1)).go());
         assertEquals("Time out running out, but not all tasks was finished", executionException.getMessage());
     }
 
@@ -54,12 +55,12 @@ class CompletableFutureTestSuitTest {
             }
         }
 
-        CompletableFuture<String> failedFuture = CompletableFuture.supplyAsync(
+        Future<String> failedFuture = CompletableFuture.supplyAsync(
                 () -> { throw new InternalException("Internal error"); });
 
-        Map<String, CompletableFuture<String>> futuresMap = Map.of("op1", failedFuture);
+        Map<String, Future<String>> futuresMap = Map.of("op1", failedFuture);
 
-        raceCompletableFutures(futuresMap)
+        raceByFutures(futuresMap)
                 .withAssertion(res -> {
                     var opResult = res.get("op1");
 
