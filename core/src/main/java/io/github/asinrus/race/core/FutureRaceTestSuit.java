@@ -51,22 +51,22 @@ public class FutureRaceTestSuit<K, T> implements RaceTestSuit {
                 .go();
     }
 
-    public static class CompletableFutureTestSuitBuilder<K, T> {
+    public static class FutureTestSuitBuilder<K, T> {
 
         private Duration timeout = Duration.of(30, ChronoUnit.SECONDS);
         private final Map<K, Future<T>> taskFutures;
         private Consumer<ComplexExecutionResult<K, T>> assertion = (result) -> { };
 
-        public CompletableFutureTestSuitBuilder(Map<K, Future<T>> taskFutures) {
+        public FutureTestSuitBuilder(Map<K, Future<T>> taskFutures) {
             this.taskFutures = taskFutures;
         }
 
-        public CompletableFutureTestSuitBuilder<K, T> withTimeout(Duration timeout) {
+        public FutureTestSuitBuilder<K, T> withTimeout(Duration timeout) {
             this.timeout = timeout;
             return this;
         }
 
-        public CompletableFutureTestSuitBuilder<K, T> withAssertion(Consumer<ComplexExecutionResult<K, T>> assertion) {
+        public FutureTestSuitBuilder<K, T> withAssertion(Consumer<ComplexExecutionResult<K, T>> assertion) {
             this.assertion = assertion;
             return this;
         }

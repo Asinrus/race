@@ -44,7 +44,7 @@ public class RaceTestSuitRegistry {
         return new BoundRaceTestSuit.BoundRaceTestSuitBuilder<>(tasks);
     }
 
-    public static <K, T> FutureRaceTestSuit.CompletableFutureTestSuitBuilder<K, T> raceByFutures(Map<K, Future<T>> tasks) {
-        return new FutureRaceTestSuit.CompletableFutureTestSuitBuilder<>(tasks);
+    public static <K, T> FutureRaceTestSuit.FutureTestSuitBuilder<K, T> raceByFutures(Map<K, Future<T>> tasks) {
+        return new FutureRaceTestSuit.FutureTestSuitBuilder<>(tasks);
     }
 }
