@@ -44,7 +44,7 @@ public class CommonExecutionResult<T> {
     public static <T> CommonExecutionResult<T> parse(ComplexExecutionResult<?, T> executionResult) {
         List<T> result = new ArrayList<>();
         List<Throwable> throwables = new ArrayList<>();
-        executionResult.result().forEach((key, val) -> {
+        executionResult.resultMap().forEach((key, val) -> {
             if (val.isHasError()) {
                 throwables.add(val.error().getCause());
             } else {

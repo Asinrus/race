@@ -4,7 +4,7 @@ Race - a tiny library written on Java 11 to help developers do integration testi
 transaction behavior.
 Just add in your `build.gradle` and enjoy 
 ```groovy
-testImplementation group: 'io.github.asinrus.race', name: 'core', version: '0.0.1'
+testImplementation group: 'io.github.asinrus.race', name: 'core', version: '1.0.0'
 ```
 
 ### Why `race`?

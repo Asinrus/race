@@ -12,6 +12,8 @@
 
 package io.github.asinrus.race.core.domain.result;
 
+import io.github.asinrus.race.core.FutureRaceTestSuit;
+
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -49,8 +51,14 @@ public class TaskExecutionResult<T> {
             return new TaskExecutionResult<>(task.get(), null, false);
         } catch (CancellationException | InterruptedException exception) {
             return new TaskExecutionResult<>(null, exception, true);
-        } catch (ExecutionException exception) {
-            return new TaskExecutionResult<>(null, exception.getCause(), true);
+        } catch (ExecutionException | FutureRaceTestSuit.RuntimeExecutionException exception ) {
+            Throwable cause = exception.getCause();
+            // TODO: think how to make it better
+            if (cause instanceof FutureRaceTestSuit.RuntimeExecutionException) {
+                return new TaskExecutionResult<>(null, exception.getCause().getCause(), true);
+            } else {
+                return new TaskExecutionResult<>(null, exception.getCause(), true);
+            }
         }
     }
 

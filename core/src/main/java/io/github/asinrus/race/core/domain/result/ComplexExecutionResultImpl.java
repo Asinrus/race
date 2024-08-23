@@ -12,6 +12,7 @@
 
 package io.github.asinrus.race.core.domain.result;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,8 +28,8 @@ public class ComplexExecutionResultImpl<K, T> implements ComplexExecutionResult<
      * @return the results of the tasks
      */
     @Override
-    public Map<K, TaskExecutionResult<T>> result() {
-        return answers;
+    public Map<K, TaskExecutionResult<T>> resultMap() {
+        return Collections.unmodifiableMap(answers);
     }
 
     /**
